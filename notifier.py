@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request
 from rocketchat.api import RocketChatAPI
-import os
+from os import environ
 
 app = Flask(__name__)
 
@@ -21,18 +21,19 @@ def notify_deploy():
     notify_rocketchat(app, release, release_summary, sha, user)
     return ''
 
-if __name__ == '__main__':
-    env = os.environ.get('ENV', 'stag')
-    debug_env = os.environ.get('DEBUG', 'false')
-    username = os.environ.get('ROCKETCHAT_USERNAME', 'user')
-    password = os.environ.get('ROCKETCHAT_PASSWORD', 'password')
-    topic = os.environ.get('ROCKETCHAT_TOPIC', 'deis-releases')
+if __name__ == '__main__' or __name__ == 'notifier':
+    env = environ.get('ENV', 'stag')
+    debug_env = environ.get('DEBUG', 'false')
+    username = environ.get('ROCKETCHAT_USERNAME', 'user')
+    password = environ.get('ROCKETCHAT_PASSWORD', 'password')
+    topic = environ.get('ROCKETCHAT_TOPIC', 'deis-releases')
     port = int(environ.get('PORT', 5000))
-    url = os.environ.get('ROCKETCHAT_URL', 'http://localhost:8080')
+    url = environ.get('ROCKETCHAT_URL', 'http://localhost:8080')
     api = RocketChatAPI(settings={'username': username, 'password': password,
         'domain': url})
-    print 'initializing deis-rocket-notifier with rocketchat username={username}, url={url}, password={password}'.format(username=username, url=url, password=password)
+    print 'initializing deis-rocket-notifier with rocketchat username={username}, url={url}'.format(username=username, url=url)
     debug = False
     if debug_env == 'true':
         debug=True
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    if __name__ == '__main__':
+        app.run(host='0.0.0.0', port=port, debug=debug)
