@@ -8,8 +8,8 @@ A deis webhook rocketchat notifier
 * It's recommended to use [virtualenv](https://github.com/pypa/virtualenv) to manage dependencies
 * Install dependencies using pip with ```pip install -r requirements.txt```
 * Configure as described below
-* Run the project with ```python notifier.py```
-* It can also be deployed into deis, note that the Procfile is already included into the project
+* Run the project with ```python notifier.py``` (Or deploy into deis, note that the Procfile is already included into the project)
+* Point deis DEIS_DEPLOY_HOOK_SECRET_KEY to the running api address, [reference](https://deis.com/blog/2016/workflow-deploy-hooks/)
 
 #### Configuration
 
