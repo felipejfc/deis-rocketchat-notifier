@@ -23,11 +23,16 @@ def notify_deploy():
 
 if __name__ == '__main__':
     env = os.environ.get('ENV', 'stag')
+    debug_env = os.environ.get('DEBUG', 'false')
     username = os.environ.get('ROCKETCHAT_USERNAME', 'user')
     password = os.environ.get('ROCKETCHAT_PASSWORD', 'password')
     topic = os.environ.get('ROCKETCHAT_TOPIC', 'deis-releases')
+    port = int(environ.get('PORT', 5000))
     url = os.environ.get('ROCKETCHAT_URL', 'http://localhost:8080')
     api = RocketChatAPI(settings={'username': username, 'password': password,
         'domain': url})
     print 'initializing deis-rocket-notifier with rocketchat username={username}, url={url}, password={password}'.format(username=username, url=url, password=password)
-    app.run(debug=True)
+    debug = False
+    if debug_env == 'true':
+        debug=True
+    app.run(host='0.0.0.0', port=port, debug=debug)
