@@ -7,7 +7,7 @@ from os import environ
 app = Flask(__name__)
 
 def notify_rocketchat(app, release, release_summary, sha, user):
-    api.send_message(':new: *Deis({env})* {app} v#{release} - _{release_summary}_'
+    api.send_message(':new: *Deis({env})* {app} #{release} - _{release_summary}_'
             .format(app=app, release=release, release_summary=release_summary, env=env), topic)
 
 @app.route('/notify_deploy', methods=['POST'])
