@@ -1,7 +1,10 @@
-deis-rocket-notifier
+deis-rocketchat-notifier
 ====================
 
 A deis webhook rocketchat notifier
+
+![demo](https://raw.githubusercontent.com/felipejfc/deis-rocketchat-notifier/master/resources/demo.png
+)
 
 #### Usage
 
